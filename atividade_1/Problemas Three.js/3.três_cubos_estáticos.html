@@ -1,2 +1,41 @@
 <!-- Escreva um programa que desenhe três cubos estáticos na tela do browser, cada um com uma
 aparência (i.e. material) distinta. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="js/three.js"></script>>
+  <script>
+			const scene = new THREE.Scene();
+			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			const geometry = new THREE.BoxGeometry();
+			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			const cube1 = new THREE.Mesh( geometry, material );
+			scene.add( cube1 );
+
+      // const geometry = new THREE.BoxGeometry();
+			// const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			// const cube2 = new THREE.Mesh( geometry, material );
+			// scene.add( cube2 );
+
+      // const geometry = new THREE.BoxGeometry();
+			// const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			// const cube3 = new THREE.Mesh( geometry, material );
+			// scene.add( cube3 );
+
+			camera.position.z = 5;
+
+      renderer.render( scene, camera );
+  </script>
+</body>
+</html>
