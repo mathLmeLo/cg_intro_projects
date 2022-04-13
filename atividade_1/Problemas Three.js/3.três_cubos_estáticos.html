@@ -25,14 +25,14 @@ aparência (i.e. material) distinta. -->
 			scene.add( cube );
 
 			const geometry1 = new THREE.BoxGeometry();
-			const material1 = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			const material1 = new THREE.MeshBasicMaterial( { color: 0xabcdef } );
 			const cube1 = new THREE.Mesh( geometry1, material1 );
 			cube1.position.x = 2
 			scene.add( cube1 );
 
 			const geometry2 = new THREE.BoxGeometry();
-			const material2 = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			const cube2 = new THREE.Mesh( geometry, material );
+			const material2 = new THREE.MeshBasicMaterial( { color: 0xccecce } );
+			const cube2 = new THREE.Mesh( geometry2, material2 );
 			scene.add( cube2 );
 
 			camera.position.z = 5;
