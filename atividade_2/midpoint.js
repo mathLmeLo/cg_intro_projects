@@ -133,7 +133,7 @@ function DrawTriangle(x0, y0, x1, y1, x2, y2, color_0, color_1, color_2) {
   // first/left edge
 	MidPointLineAlgorithm(x0, y0, x1,y1, color_1, color_2);
   // second/right edge
-  MidPointLineAlgorithm(x1, y1, x2,y2, color_1, color_2);
+  MidPointLineAlgorithm(y1, x1, y2,x2, color_1, color_2);
   // third/bottom edge
   MidPointLineAlgorithm(x0, y0, x2,y2, color_1, color_2); 
 }
@@ -155,5 +155,5 @@ function InterpolateColor(range, step, first_color, second_color) {
   }
 }
 
-//  MidPointLineAlgorithm(25, 10, 100,50, [255,0,0,255], [255,255,0,255]);
- DrawTriangle(25, 30, 50, 100, 100, 15, [255,0,0,255], [0,0,255,255], [0,255,0,255]);
+ MidPointLineAlgorithm(25, 10, 100,50, [255,0,0,255], [255,255,0,255]);
+//  DrawTriangle(25, 30, 50, 100, 100, 15, [255,0,0,255], [0,0,255,255], [0,255,0,255]);
