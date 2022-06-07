@@ -112,8 +112,11 @@ m_model.set(1.0, 0.0, 0.0, 0.0,
             0.0, 0.0, 1.0, 0.0,
             0.0, 0.0, 0.0, 1.0);
 
+console.log("\n\nMatriz Model (modelagem): Esp. Objeto --> Esp. Universo. ");
 for (let i = 0; i < 8; ++i) {
+    console.log(vertices[i]);
     vertices[i].applyMatrix4(m_model);
+    console.log(vertices[i]);
 }
 /******************************************************************************
  * Parâmetros da camera sintética.
@@ -130,13 +133,17 @@ let cam_up = new THREE.Vector3(0.0,1.0,0.0);      // vetor Up da câmera.
 // Derivar os vetores da base da câmera a partir dos parâmetros informados acima.
 
 // ---------- implementar aqui ----------------------------------------------
-
+// Duvida: só subtrair nessa parte né?
 let direction = (cam_look_at.clone().sub(cam_pos));
+console.log(direction);
 
 let z_cam = (direction.clone().divideScalar(direction.length())).negate(); // checar depois 
 
+console.log("z_cam = ", z_cam);
 let cross_up_z = cam_up.clone().cross(z_cam);
+console.log("cam_up = ", cam_up);
 let x_cam = cross_up_z.divideScalar(cross_up_z.length());
+console.log("x_cam = ", x_cam, " cross_up_z = ", cross_up_z);
 
 let cross_z_x = z_cam.clone().cross(x_cam);
 let y_cam = cross_z_x.divideScalar(cross_z_x.length());
@@ -164,11 +171,14 @@ m_t.set(1.0, 0.0, 0.0, -cam_pos.x, // considerando a origem como 0,0,0
 
 // Constrói a matriz de visualização 'm_view' como o produto
 //  de 'm_bt' e 'm_t'.
-
+console.log("m_bt = ", m_bt);
+console.log("m_t = ", m_t);
 let m_view = m_bt.clone().multiply(m_t);
-
+console.log("\n\nMatriz View (visualização): Esp. Universo --> Esp. Câmera.");
 for (let i = 0; i < 8; ++i) {
+  console.log(vertices[i]);
   vertices[i].applyMatrix4(m_view);
+  console.log(vertices[i]);
 }
 /******************************************************************************
  * Matriz de Projecao: Esp. Câmera --> Esp. Recorte
@@ -212,17 +222,19 @@ translate.set(1.0, 0.0, 0.0, 1.0,
               0.0, 0.0, 1.0, 0.0,
               0.0, 0.0, 0.0, 1.0);
 
+// Dúvida como eu defino o valor do quadro? é sempre /2 ou varia de acordo com o valor máximo
 scale.set(128/2, 0.0, 0.0, 0.0,
           0.0, 128/2, 0.0, 0.0,
           0.0, 0.0, 1.0, 0.0,
           0.0, 0.0, 0.0, 1.0);
 
-console.log(translate.multiply(scale));
-m_viewport = (translate.multiply(scale));
+console.log(scale.clone().multiply(translate));
+m_viewport = (scale.clone().multiply(translate));
 console.log(m_viewport);
 for (let i = 0; i < 8; ++i) {
-  // console.log(vertices[i])
+  console.log(vertices[i])
   vertices[i].applyMatrix4(m_viewport);
+  vertices[i].floor();
 }
 /******************************************************************************
  * Rasterização
@@ -230,10 +242,16 @@ for (let i = 0; i < 8; ++i) {
 
 // ---------- implementar aqui ----------------------------------------------
 // midpoint(25, 30, 100, 80, [255, 0, 0, 255], [255, 255, 0, 255]);
-for (let i = 1; i < 8; ++i) {
-  console.log(vertices[i].x, vertices[i].y, vertices[i].z);
-  // midpoint(vertices[i].x, vertices[i].y, vertices[i-1].x, vertices[i-1].y, [255, 0, 0, 255], [255, 255, 0, 255]);
-  color_buffer.putPixel(vertices[i].x, vertices[i].y, [255,0,0]); 
+for (let i = 0; i < edges.length; ++i) {
+  let edge1 = edges[i][0];
+  let edge2 = edges[i][1];
+
+  console.log("edge1 = ", vertices[edge1].x, vertices[edge1].y);
+  console.log("edge2 = ", vertices[edge2].x, vertices[edge2].y);
+  console.log("\n\n");
+  midpoint(vertices[edge1].x, vertices[edge1].y, vertices[edge2].x, vertices[edge2].y, [255, 0, 0, 255], [255, 0, 0, 255]);
+  // for (let j = 0; j < 30; j++)
+  //   color_buffer.putPixel(vertices[i].x+j, vertices[i].y+j, [255,0,0, 255]); 
 }
 
 // os valores tão bem fora de 128x128 e não tamo conseguindo colorir o buffer.
