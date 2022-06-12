@@ -76,30 +76,76 @@ function midpoint(x0, y0, x1, y1, color_0, color_1) {
  * tem comprimento igual a 2.
  *****************************************************************************/
 //                                   X     Y     Z    W (coord. homogênea)
-let vertices = [new THREE.Vector4(-1.0, -1.0, -1.0, 1.0),
+let vertices_cube = [new THREE.Vector4(-1.0, -1.0, -1.0, 1.0),
                 new THREE.Vector4( 1.0, -1.0, -1.0, 1.0),
                 new THREE.Vector4( 1.0, -1.0,  1.0, 1.0),
                 new THREE.Vector4(-1.0, -1.0,  1.0, 1.0),
                 new THREE.Vector4(-1.0,  1.0, -1.0, 1.0),
                 new THREE.Vector4( 1.0,  1.0, -1.0, 1.0),
                 new THREE.Vector4( 1.0,  1.0,  1.0, 1.0),
-                new THREE.Vector4(-1.0,  1.0,  1.0, 1.0)];
+                new THREE.Vector4(-1.0,  1.0,  1.0, 1.0)
+              ];
+
+let vertices_rectangle = [new THREE.Vector4(-0.5, -0.5, -1.0, 1.0),
+                new THREE.Vector4( 0.5, -0.5, -1.0, 1.0),
+                new THREE.Vector4( 0.5, -0.5,  1.0, 1.0),
+                new THREE.Vector4(-0.5, -0.5,  1.0, 1.0),
+                new THREE.Vector4(-0.5,  0.5, -1.0, 1.0),
+                new THREE.Vector4( 0.5,  0.5, -1.0, 1.0),
+                new THREE.Vector4( 0.5,  0.5,  1.0, 1.0),
+                new THREE.Vector4(-0.5,  0.5,  1.0, 1.0)
+              ];
+
+let vertices_triangle = [new THREE.Vector4(-1.0, -1.0, -1.0, 1.0),
+                new THREE.Vector4( 1.0, -1.0, -1.0, 1.0),
+                new THREE.Vector4( 1.0,  1.0, -1.0, 1.0),
+                new THREE.Vector4(-1.0,  1.0, -1.0, 1.0),
+                new THREE.Vector4( 0.0,  0.0, 1.0, 1.0),
+              ];
 
 /******************************************************************************
  * As 12 arestas do cubo, indicadas através dos índices dos seus vértices.
  *****************************************************************************/
-let edges = [[0,1],
-             [1,2],
-             [2,3],
-             [3,0],
-             [4,5],
-             [5,6],
-             [6,7],
-             [7,4],
-             [0,4],
-             [1,5],
-             [2,6],
-             [3,7]];
+let edges_cube = [[0,1],
+            [1,2],
+            [2,3],
+            [3,0],
+            [4,5],
+            [5,6],
+            [6,7],
+            [7,4],
+            [0,4],
+            [1,5],
+            [2,6],
+            [3,7]];
+
+let edges_rectangle = [[0,1],
+            [1,2],
+            [2,3],
+            [3,0],
+            [4,5],
+            [5,6],
+            [6,7],
+            [7,4],
+            [0,4],
+            [1,5],
+            [2,6],
+            [3,7]];
+
+
+let edges_triangle = [[0,1],
+            [1,2],
+            [2,3],
+            [3,0],
+            [0,4],
+            [1,4],
+            [2,4],
+            [3,4],
+           ];
+
+let edges = edges_triangle;
+let vertices = vertices_triangle;
+let len_vertices = vertices.length;
 
 /******************************************************************************
  * Matriz Model (modelagem): Esp. Objeto --> Esp. Universo. 
@@ -113,7 +159,7 @@ m_model.set(1.0, 0.0, 0.0, 0.0,
             0.0, 0.0, 0.0, 1.0);
 
 console.log("\n\nMatriz Model (modelagem): Esp. Objeto --> Esp. Universo. ");
-for (let i = 0; i < 8; ++i) {
+for (let i = 0; i < len_vertices; ++i) {
     console.log(vertices[i]);
     vertices[i].applyMatrix4(m_model);
     console.log(vertices[i]);
@@ -175,7 +221,7 @@ console.log("m_bt = ", m_bt);
 console.log("m_t = ", m_t);
 let m_view = m_bt.clone().multiply(m_t);
 console.log("\n\nMatriz View (visualização): Esp. Universo --> Esp. Câmera.");
-for (let i = 0; i < 8; ++i) {
+for (let i = 0; i < len_vertices; ++i) {
   console.log(vertices[i]);
   vertices[i].applyMatrix4(m_view);
   console.log(vertices[i]);
@@ -194,7 +240,7 @@ m_projection.set(1.0, 0.0, 0.0, 0.0,
                   0.0, 0.0, 1.0, d,
                   0.0, 0.0, -1/d, 0.0);
 
-for (let i = 0; i < 8; ++i) {
+for (let i = 0; i < len_vertices; ++i) {
   vertices[i].applyMatrix4(m_projection);
 }
 /******************************************************************************
@@ -202,7 +248,7 @@ for (let i = 0; i < 8; ++i) {
  *****************************************************************************/
 
 // ---------- implementar aqui ----------------------------------------------
-for (let i = 0; i < 8; ++i) {
+for (let i = 0; i < len_vertices; ++i) {
   let w = vertices[i].w;
   vertices[i].divideScalar(w);
 }
@@ -231,7 +277,8 @@ scale.set(128/2, 0.0, 0.0, 0.0,
 console.log(scale.clone().multiply(translate));
 m_viewport = (scale.clone().multiply(translate));
 console.log(m_viewport);
-for (let i = 0; i < 8; ++i) {
+// Dúvida: tem que aplicar o floor?
+for (let i = 0; i < len_vertices; ++i) {
   console.log(vertices[i])
   vertices[i].applyMatrix4(m_viewport);
   vertices[i].floor();
