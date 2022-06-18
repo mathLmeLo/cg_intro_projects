@@ -86,7 +86,7 @@ let vertices_cube = [new THREE.Vector4(-1.0, -1.0, -1.0, 1.0),
                 new THREE.Vector4(-1.0,  1.0,  1.0, 1.0)
               ];
 
-let vertices_rectangle = [new THREE.Vector4(-0.5, -0.5, -1.0, 1.0),
+let vertices_parallelepiped = [new THREE.Vector4(-0.5, -0.5, -1.0, 1.0),
                 new THREE.Vector4( 0.5, -0.5, -1.0, 1.0),
                 new THREE.Vector4( 0.5, -0.5,  1.0, 1.0),
                 new THREE.Vector4(-0.5, -0.5,  1.0, 1.0),
@@ -96,7 +96,7 @@ let vertices_rectangle = [new THREE.Vector4(-0.5, -0.5, -1.0, 1.0),
                 new THREE.Vector4(-0.5,  0.5,  1.0, 1.0)
               ];
 
-let vertices_triangle = [new THREE.Vector4(-1.0, -1.0, -1.0, 1.0),
+let vertices_pyramid = [new THREE.Vector4(-1.0, -1.0, -1.0, 1.0),
                 new THREE.Vector4( 1.0, -1.0, -1.0, 1.0),
                 new THREE.Vector4( 1.0,  1.0, -1.0, 1.0),
                 new THREE.Vector4(-1.0,  1.0, -1.0, 1.0),
@@ -119,7 +119,7 @@ let edges_cube = [[0,1],
             [2,6],
             [3,7]];
 
-let edges_rectangle = [[0,1],
+let edges_parallelepiped = [[0,1],
             [1,2],
             [2,3],
             [3,0],
@@ -133,7 +133,7 @@ let edges_rectangle = [[0,1],
             [3,7]];
 
 
-let edges_triangle = [[0,1],
+let edges_pyramid = [[0,1],
             [1,2],
             [2,3],
             [3,0],
@@ -144,8 +144,8 @@ let edges_triangle = [[0,1],
            ];
 
 // Para alterar a figura é só mudar as variáveis aqui
-let edges = edges_triangle;
-let vertices = vertices_triangle;
+let edges = edges_pyramid;
+let vertices = vertices_pyramid;
 let len_vertices = vertices.length;
 
 /******************************************************************************
