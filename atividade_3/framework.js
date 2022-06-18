@@ -143,6 +143,7 @@ let edges_triangle = [[0,1],
             [3,4],
            ];
 
+// Para alterar a figura é só mudar as variáveis aqui
 let edges = edges_triangle;
 let vertices = vertices_triangle;
 let len_vertices = vertices.length;
