@@ -1,6 +1,6 @@
-# Midpoint Line Algorithm
+# Phong Lighting Model with Phong Shading and Gourard Shading
 
-Implementation of the Mipoint Line Algorithm for rasterization of lines.
+Implementation of the Phong Lighting Model with Phong Shading and Gourard Shading.
 This is an academic project and was proposed during the course of Introduction to Computer Graphics at UFPB.
 
 
